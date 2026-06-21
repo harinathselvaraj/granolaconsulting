@@ -1,69 +1,102 @@
-# Granola Consulting Website
+# Granola Consulting — Monorepo
 
-Static website for `www.granolaconsulting.com`.
+Monorepo for `granolaconsulting.com` (marketing website) and the HoneyGold product app (`app.granolaconsulting.com`), hosted on Vercel with automatic deployments from this repo.
 
 ## Structure
 
-- **Pages**: `index.html`, `products.html`, `profile.html`, `contact.html`, `blogs.html`, `blog.html`
-- **Product detail (dynamic)**: `product.html`
-  - Renders different products based on the `product` query parameter (e.g. `product.html?product=honeygold`)
-  - Content is populated by `js/custom.js` (`PRODUCT_DETAILS`, `loadProductDetail()`)
-- **Styles**: `css/style.css`
-- **Scripts**: `js/custom.js` + other JS utilities
+```
+apps/
+  website/          → granolaconsulting.com (marketing site)
+    public/         ← HTML pages, CSS, JS, images, fonts, downloads
+    vercel.json     ← clean URLs, rewrites, 301 redirects
+    package.json
+  honeygold/        → app.granolaconsulting.com (HoneyGold product app)
+    public/         ← sign-in, onboard, privacy, terms, sandbox pages
+    vercel.json     ← clean URLs, legacy redirects
+    package.json
+honeygold/          → HoneyGold backend product (Docker / AWS)
+docs/               → hosting and ops documentation
+```
 
-## Product URLs
+## Apps
 
-Examples:
+### `apps/website` — Marketing site
 
-- `https://www.granolaconsulting.com/product.html?product=honeygold`
-- `https://www.granolaconsulting.com/product.html?product=cinnamon`
+**Domain:** `www.granolaconsulting.com` · `granolaconsulting.com`  
+**Vercel project:** `granola-website`
 
-`js/custom.js` also accepts legacy aliases `name` and `project` for the slug query parameter.
+| URL | File |
+|-----|------|
+| `/` | `index.html` |
+| `/about` | `about.html` |
+| `/contact` | `contact.html` |
+| `/products` | `products.html` |
+| `/products/:slug` | `product.html` (served via Vercel rewrite) |
+| `/blog` | `blog/index.html` |
+| `/blog/:slug` | `blog.html` (served via Vercel rewrite) |
+| `/services` | `services.html` |
 
-HTML, CSS, and local JS use **paths relative to each page** (for example `css/style.css`, `js/custom.js`, `images/...`) so the site works when opened from disk as `file:///path/to/.../product.html?product=honeygold` **as long as the page lives next to the `css/`, `js/`, and `images/` folders**.
+`cleanUrls: true` removes `.html` extensions. All legacy `.html` URLs (e.g. `/profile.html`, `/blogs.html`) 301-redirect to their new slug equivalents.
 
-jQuery is loaded from `code.jquery.com`; you need a network connection for that script (and for Google Fonts links) unless you host a local copy and point the script tags at it.
+Product and blog content is loaded dynamically from `js/custom.js` (`PRODUCT_DETAILS`, `BLOG_POSTS`). The slug is read from the URL path (`/products/honeygold`) with fallback to query param (`?product=honeygold`) for backwards compatibility.
 
-Optional: you can still preview over HTTP with `python3 -m http.server` from the site folder and open `http://localhost:8000/product.html?product=honeygold`.
+### `apps/honeygold` — HoneyGold product app
 
-## Production hosting (Route53 + CloudFront + S3)
+**Domain:** `app.granolaconsulting.com`  
+**Vercel project:** `granola-honeygold`
 
-The site is moving from **Cloudflare DNS/proxy** to **AWS Route53 + CloudFront** (same pattern as **paytube.ie**). See **[docs/hosting/route53-migration.md](docs/hosting/route53-migration.md)** for cutover steps, ACM validation CNAMEs, and nameserver delegation.
+| URL | File |
+|-----|------|
+| `/sign-in` | `sign-in.html` |
+| `/login` | `login.html` |
+| `/onboard` | `onboard.html` |
+| `/privacy-policy` | `privacy-policy.html` |
+| `/terms` | `terms.html` |
+| `/sandbox` | `sandbox.html` |
+| `/checkout-success` | `checkout-success.html` |
+| `/enterprise-thanks` | `enterprise-thanks.html` |
 
-Legacy Cloudflare notes (redirect rule + proxied CNAMEs) are below for reference during migration.
+## Local development
 
-### Redirect: apex → `www`
+```bash
+# Marketing site on http://localhost:8000
+cd apps/website && npm run dev
 
-- **Rule name:** Redirect from root to WWW  
-- **Match:** wildcard URL `https://granolaconsulting.com/*`  
-- **Action:** `**301` Permanent Redirect** to `https://www.granolaconsulting.com/${1}` (path preserved via `${1}`)  
-- **Query string:** preserved
+# HoneyGold app on http://localhost:8001
+cd apps/honeygold && npm run dev
+```
 
-So `https://granolaconsulting.com/anything?x=1` becomes `https://www.granolaconsulting.com/anything?x=1`.
+## Deployment
 
-Cloudflare Single Redirect rule: apex domain to www
+Both apps deploy automatically to Vercel on every push to `main`:
 
-### DNS (summary)
+| App | Vercel project | Root directory |
+|-----|---------------|----------------|
+| Marketing | `granola-website` | `apps/website` |
+| HoneyGold | `granola-honeygold` | `apps/honeygold` |
 
-Both website CNAMEs are **Proxied** (orange cloud) through Cloudflare.
+Manual deploy (if needed):
+```bash
+cd apps/website  && npx vercel --prod
+cd apps/honeygold && npx vercel --prod
+```
 
+## DNS (Cloudflare)
 
-| Type  | Name                    | Purpose (as configured)                                        |
-| ----- | ----------------------- | -------------------------------------------------------------- |
-| CNAME | `granolaconsulting.com` | Points to `**www.granolaconsulting.com`** (apex handled here)  |
-| CNAME | `www`                   | Points to `**granolaconsulting.com.s3-…**` (static site on S3) |
+All three records must be set to **DNS only** (grey cloud) in Cloudflare:
 
+| Type | Name | Value |
+|------|------|-------|
+| A | `@` (apex) | `76.76.21.21` |
+| A | `www` | `76.76.21.21` |
+| A | `app` | `76.76.21.21` |
 
-Additional **TXT** records (shown as **DNS only** in Cloudflare):
+Vercel provisions SSL automatically once the A records resolve.
 
-- `**granolaconsulting.com`:** SPF `v=spf1 -all` (no mail send from this zone)  
-- `**_dmarc`:** DMARC with `p=reject`  
-- `***._domainkey`:** DKIM placeholder (`v=DKIM1; p=`)
+## Editing content
 
-DNS mode in the screenshot: **Full**.
-
-Cloudflare DNS records for granolaconsulting.com
-
-## Editing products
-
-Product copy is in `js/custom.js` under `PRODUCT_DETAILS` (name/subtitle/intro/feature cards).
+- **Product pages:** `apps/website/public/js/custom.js` → `PRODUCT_DETAILS` object
+- **Blog posts:** `apps/website/public/js/custom.js` → `BLOG_POSTS` array
+- **HoneyGold sign-in logic:** `apps/honeygold/public/js/honeygold-signin.js`
+- **HoneyGold onboarding:** `apps/honeygold/public/js/honeygold-onboard.js`
+- **Sitemap:** `apps/website/public/sitemap.xml`

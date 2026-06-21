@@ -1625,7 +1625,7 @@
         if (state.mode === "starter") {
             return "/sign-in?product=honeygold&plan=starter";
         }
-        return "product.html?product=honeygold#hg-product-pricing-plans";
+        return "https://www.granolaconsulting.com/products/honeygold#hg-product-pricing-plans";
     }
 
     function handleBack() {

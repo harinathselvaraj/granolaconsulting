@@ -1,1 +1,20 @@
+# Dependencies & build tooling
 .venv/
+.tools/
+node_modules/
+
+# Vercel CLI local link
+.vercel
+
+# OS / editor
+.DS_Store
+.cursor/
+.claude/
+
+# HoneyGold backend — tracked in its own separate git repository
+honeygold/
+
+# Local backend / tooling not part of the Vercel-deployed sites
+api/
+scripts/
+docs/

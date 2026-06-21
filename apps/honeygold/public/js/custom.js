@@ -245,7 +245,7 @@ var PRODUCT_CATALOG = [
         title: "HoneyGold",
         imageBase: "images/honeygold/honeygold_ai_chat",
         description: "Performance Intelligence: ask-your-business analytics, daily executive summaries, and early signals before KPIs drift.",
-        url: "product.html?product=honeygold",
+        url: "/products/honeygold",
         size: "grid-6 m-grid-6 s-grid-12 work-pod medium post"
     },
     {
@@ -253,7 +253,7 @@ var PRODUCT_CATALOG = [
         title: "Cinnamon",
         imageBase: "images/products/cinnamon-bg",
         description: "Personalized Matching & Recommendations: preference profiles and predictive notifications that stay relevant, not noisy.",
-        url: "product.html?product=cinnamon",
+        url: "/products/cinnamon",
         size: "grid-6 m-grid-6 s-grid-12 work-pod medium post"
     },
     {
@@ -261,7 +261,7 @@ var PRODUCT_CATALOG = [
         title: "Berry",
         imageBase: "images/products/berry-bg",
         description: "Computer Vision Inspection: automated visual checks, defect detection, and data capture from photos and documents.",
-        url: "product.html?product=berry",
+        url: "/products/berry",
         size: "grid-6 m-grid-6 s-grid-12 work-pod medium"
     },
     {
@@ -269,7 +269,7 @@ var PRODUCT_CATALOG = [
         title: "Slate",
         imageBase: "images/products/slate-bg",
         description: "Predictive Pricing & Optimization: forecast outcomes, estimate ranges, and optimize thresholds using your historical signals.",
-        url: "product.html?product=slate",
+        url: "/products/slate",
         size: "grid-6 m-grid-6 s-grid-12 work-pod medium"
     },
     {
@@ -277,7 +277,7 @@ var PRODUCT_CATALOG = [
         title: "TealSprout",
         imageBase: "images/products/tealsprout-bg",
         description: "Compliance & Risk Automation: identity checks, screening workflows, and audit trails that are reviewable and traceable.",
-        url: "product.html?product=tealsprout",
+        url: "/products/tealsprout",
         size: "grid-6 m-grid-6 s-grid-12 work-pod medium"
     },
     {
@@ -285,7 +285,7 @@ var PRODUCT_CATALOG = [
         title: "OatMilk",
         imageBase: "images/products/oatmilk-bg",
         description: "Bespoke Software Development & Maintenance: scoped builds, integrations, and ongoing support with clear ownership and SLAs.",
-        url: "product.html?product=oatmilk",
+        url: "/products/oatmilk",
         size: "grid-6 m-grid-6 s-grid-12 work-pod medium"
     }
 ]

@@ -358,7 +358,7 @@ function listBlogs() {
         if (!post) {
             continue
         }
-        var url = "blog.html?name=" + encodeURIComponent(slug)
+        var url = "/blog/" + encodeURIComponent(slug)
         var title = post.title
         var date = post.date
         var description = post.description
@@ -391,7 +391,7 @@ function listBlogs() {
 }
 
 function loadBlogDetail() {
-    var slug = getQueryParam("name")
+    var slug = getProductSlugFromUrl() || getQueryParam("name")
     if (!slug) {
         window.location.href = "/blog"
         return
@@ -2147,7 +2147,7 @@ function bootstrapGranolaPage() {
     if (document.getElementsByClassName("product-detail-content").length) {
         loadProductDetail()
     }
-    if (document.getElementsByClassName("blog-entry-content").length && getQueryParam("name")) {
+    if (document.getElementsByClassName("blog-entry-content").length && (getProductSlugFromUrl() || getQueryParam("name"))) {
         loadBlogDetail()
     }
     if (document.body.classList.contains("service-detail-page") && getQueryParam("name")) {

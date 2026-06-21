@@ -1,0 +1,12 @@
+{
+  "name": "granola-website",
+  "version": "1.0.0",
+  "description": "Granola Consulting marketing website - www.granolaconsulting.com",
+  "private": true,
+  "scripts": {
+    "dev": "python3 -m http.server 8000 --directory public",
+    "build": "echo 'No build step required'"
+  },
+  "keywords": ["ai", "consulting", "honeygold", "analytics"],
+  "author": "Granola Consulting"
+}

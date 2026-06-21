@@ -1,0 +1,12 @@
+{
+  "name": "granola-honeygold-app",
+  "version": "1.0.0",
+  "description": "HoneyGold product app - app.granolaconsulting.com",
+  "private": true,
+  "scripts": {
+    "dev": "python3 -m http.server 8001 --directory public",
+    "build": "echo 'No build step required'"
+  },
+  "keywords": ["honeygold", "analytics", "ai"],
+  "author": "Granola Consulting"
+}

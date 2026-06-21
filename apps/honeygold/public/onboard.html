@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/cookie-consent.css?v=20260529b"/>
+    <script src="js/cookie-consent.js?v=20260529b"></script>
+    <meta name="format-detection" content="telephone=no"/>
+    <title>HoneyGold onboarding | Granola Consulting</title>
+    <link rel="canonical" href="https://app.granolaconsulting.com/onboard"/>
+    <meta name="description" content="Start your dedicated HoneyGold environment: choose a plan, provide organization and contact details, and provision isolated AWS infrastructure (ECS Fargate + PostgreSQL)."/>
+    <meta name="theme-color" content="#d09a00"/>
+    <meta name="robots" content="noindex,follow"/>
+    <meta property="og:site_name" content="Granola Consulting"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://www.granolaconsulting.com/honeygold-onboard.html"/>
+    <meta property="og:title" content="HoneyGold onboarding | Granola Consulting"/>
+    <meta property="og:description" content="Provision a dedicated HoneyGold tenant on AWS."/>
+    <meta property="og:image" content="https://www.granolaconsulting.com/images/honeygold/honeygold_ai_chat.png"/>
+    <link rel="shortcut icon" sizes="16x16 24x24 32x32 48x48 64x64" href="favico.ico" type="image/x-icon"/>
+    <link rel='stylesheet' href='css/style.css?v=20260608g' type='text/css' media='all'/>
+    <link rel='stylesheet' href='css/grid.css?v=20260515e' type='text/css' media='all'/>
+    <link rel='stylesheet' href='css/hamburgers.css?v=20260515e' type='text/css' media='all'/>
+    <link rel='stylesheet' href='css/honeygold-onboard.css?v=20260602h' type='text/css' media='all'/>
+    <link rel='stylesheet' href='css/honeygold-legal.css?v=20260519a' type='text/css' media='all'/>
+    <script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.js?v=20260515e'></script>
+    <script type='text/javascript' src='js/snap.svg-min.js?ver=20260515e'></script>
+    <script type='text/javascript' src='js/init.js?ver=20260515e'></script>
+    <script type='text/javascript' src='js/custom.js?ver=20260608k'></script>
+    <script>
+        window.HG_ONBOARD_API_BASE = "https://honeygold.granolaconsulting.com/api/v1";
+        window.HG_ONBOARD_USE_MOCK = false;
+        window.HG_BILLING_ENABLED = true;
+    </script>
+    <script type='text/javascript' src='js/honeygold-onboard.js?ver=20260605a'></script>
+    <script>
+        window.onload = function () {
+            if (typeof initHoneyGoldOnboarding === "function") {
+                initHoneyGoldOnboarding();
+            }
+        };
+    </script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+    <link rel="icon" href="images/favicon_64x64.svg" sizes="32x32"/>
+</head>
+
+<body class="page-template-default page group-blog product-honeygold honeygold-onboard-page">
+
+<div id="page" class="hfeed site">
+    <a class="skip-link screen-reader-text" href="#hg-onboard-main">Skip to onboarding form</a>
+
+    <header id="portfolio">
+        <div id="header">
+            <div style="position:relative; z-index:100;">
+                <a href="https://www.granolaconsulting.com" target="_self">
+                    <div class="logo"><img src="images/granola_logo_mini.svg" alt="Granola Consulting" width="120" height="30" decoding="async"></div>
+                </a>
+                <a href="https://www.linkedin.com/company/createdesign" target="_blank" rel="noopener noreferrer" aria-label="Granola Consulting on LinkedIn"><span class="menu-linkedin" aria-hidden="true"></span></a>
+                <nav id="site-navigation" class="main-navigation" role="navigation">
+                    <button class="menu-toggle hamburger hamburger--elastic" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu-main-menu">
+                        <span class="hamburger-box"><span class="hamburger-inner"></span></span>
+                    </button>
+                    <div class="menu-main-menu-container">
+                        <ul id="menu-main-menu" class="menu">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="products.html">Products</a></li>
+                            <li><a href="profile.html">Profile</a></li>
+                            <li><a href="contact.html">Say Hello</a></li>
+                            <li><a href="blogs.html">Blog</a></li>
+                            <li><a href="/sign-in?product=honeygold&amp;plan=starter">Sign in</a></li>
+                            <hr/>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div id="primary" class="content-area">
+        <main id="hg-onboard-main" class="site-main" role="main">
+            <article class="post hg-onboard-article">
+                <header class="entry-header hg-onboard-header">
+                    <p class="hg-onboard-eyebrow"><a href="https://www.granolaconsulting.com/products/honeygold">HoneyGold</a> · Performance Intelligence</p>
+                    <h1 class="entry-title">Get your dedicated environment</h1>
+                    <p class="hg-onboard-intro">Business and Enterprise customers receive a <strong>dedicated AWS stack</strong> (CloudFormation): VPC, ECS Fargate, and RDS PostgreSQL. For free instant access, <a href="/sign-in?plan=starter">sign in with Google on Starter</a>.</p>
+                </header>
+
+                <div class="entry-content hg-onboard-content">
+                <p id="hg-onboard-global-error" class="hg-onboard-error hg-onboard-global-error" hidden role="alert"></p>
+                <nav class="hg-onboard-steps" aria-label="Onboarding progress">
+                    <ol id="hg-onboard-step-indicator"></ol>
+                </nav>
+
+                <div id="hg-onboard-panels" class="hg-onboard-panels"></div>
+
+                <div id="hg-onboard-actions" class="hg-onboard-actions">
+                    <button type="button" id="hg-onboard-back" class="view-more-btn hg-onboard-btn-secondary">Back</button>
+                    <button type="button" id="hg-onboard-next" class="view-more-btn hg-onboard-btn-primary">Continue</button>
+                </div>
+
+                <section id="hg-onboard-provision" class="hg-onboard-provision" hidden aria-live="polite"></section>
+                </div>
+            </article>
+        </main>
+    </div>
+
+    <div class="push"></div>
+</div>
+
+<footer id="colophon" class="site-footer" role="contentinfo">
+        <div class="footer-content">
+            <hr/>
+            <h2><a href="mailto:hello@granolaconsulting.com" target="_blank">hello@granolaconsulting.com</a><!-- | Dogpatch Labs, The CHQ Building, Custom House Quay, Dublin, Ireland --></h2>
+            <h3>© 2025 Granola Consulting. All rights reserved</h3>
+        </div>
+        <div class="footer-mobile">
+            <hr/>
+            <h2><a href="mailto:hello@granolaconsulting.com" target="_blank">hello@granolaconsulting.com</a><!--<br/>
+                Dogpatch Labs, The CHQ Building, Custom House Quay, Dublin, Ireland--></h2>
+            <h3>© 2025 Granola Consulting. All rights reserved</h3>
+        </div>
+</footer>
+<script type='text/javascript' src='js/jquery-scrolltofixed-min.js?ver=20260515k'></script>
+<script type='text/javascript' src='js/navigation.js?ver=20260515k'></script>
+<script type='text/javascript' src='js/skip-link-focus-fix.js?ver=20260515k'></script>
+</body>
+</html>

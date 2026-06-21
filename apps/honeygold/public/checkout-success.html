@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HoneyGold payment received | Granola Consulting</title>
+    <meta name="robots" content="noindex,follow"/>
+    <link rel='stylesheet' href='css/style.css?v=20260608g' type='text/css' media='all'/>
+    <link rel='stylesheet' href='css/honeygold-onboard.css?v=20260602a' type='text/css' media='all'/>
+    <script>
+        (function () {
+            var params = new URLSearchParams(window.location.search);
+            var checkoutId = params.get("checkout_id") || "";
+            var sessionId = params.get("session_id") || "";
+            var target = "honeygold-onboard.html";
+            if (checkoutId) {
+                target +=
+                    "?checkout_id=" +
+                    encodeURIComponent(checkoutId) +
+                    (sessionId ? "&session_id=" + encodeURIComponent(sessionId) : "");
+            }
+            window.location.replace(target);
+        })();
+    </script>
+</head>
+<body class="product-honeygold honeygold-onboard-page">
+<p class="hg-onboard-panel-lead" style="padding:2em;text-align:center;">Payment received. Starting your HoneyGold deployment…
+    <noscript><a href="/onboard">Continue to deployment status</a></noscript>
+</p>
+</body>
+</html>

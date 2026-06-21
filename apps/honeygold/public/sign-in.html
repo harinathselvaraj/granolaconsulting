@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/cookie-consent.css?v=20260529b"/>
+    <script src="js/cookie-consent.js?v=20260529b"></script>
+    <meta name="format-detection" content="telephone=no"/>
+    <title>HoneyGold sign in | Granola Consulting</title>
+    <link rel="canonical" href="https://app.granolaconsulting.com/sign-in"/>
+    <meta name="description" content="Sign in to HoneyGold Starter: Google or email, Claude Desktop MCP connector, shared analytics pool."/>
+    <meta name="theme-color" content="#d09a00"/>
+    <meta name="robots" content="noindex,follow"/>
+    <link rel="shortcut icon" sizes="16x16 24x24 32x32 48x48 64x64" href="favico.ico" type="image/x-icon"/>
+    <link rel='stylesheet' href='css/style.css?v=20260608g' type='text/css' media='all'/>
+    <link rel='stylesheet' href='css/grid.css?v=20260515e' type='text/css' media='all'/>
+    <link rel='stylesheet' href='css/hamburgers.css?v=20260515e' type='text/css' media='all'/>
+    <link rel='stylesheet' href='css/honeygold-signin.css?v=20260531b' type='text/css' media='all'/>
+    <script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.js?v=20260515e'></script>
+    <script type='text/javascript' src='js/init.js?ver=20260515e'></script>
+    <script type='text/javascript' src='js/custom.js?ver=20260608k'></script>
+    <script>
+        window.HG_ONBOARD_API_BASE = "https://honeygold.granolaconsulting.com/api/v1";
+        window.HG_COGNITO_REDIRECT_URI = "https://www.granolaconsulting.com/honeygold-signin.html";
+        window.HG_ENROLL_API_URL = "https://honeygold.granolaconsulting.com/api/v1/accounts/enroll";
+        window.HG_COGNITO_DOMAIN = "https://honeygold-starter.auth.eu-west-1.amazoncognito.com";
+        window.HG_COGNITO_CLIENT_ID = "1p287rjf55m87c3djlqfgmmi1n";
+        window.HG_SHARED_APP_URL = "https://honeygold.granolaconsulting.com";
+    </script>
+    <script type='text/javascript' src='js/honeygold-signin.js?ver=20260606a'></script>
+    <script>
+        window.onload = function () {
+            if (typeof initHoneyGoldSignIn === "function") {
+                initHoneyGoldSignIn();
+            }
+        };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/favicon_64x64.svg" sizes="32x32"/>
+</head>
+
+<body class="page-template-default page group-blog product-honeygold honeygold-signin-page">
+
+<div id="page" class="hfeed site">
+    <a class="skip-link screen-reader-text" href="#hg-signin-main">Skip to sign in</a>
+
+    <div id="primary" class="content-area">
+        <main id="hg-signin-main" class="site-main" role="main">
+            <div class="hg-signin-shell">
+                <div class="hg-signin-card">
+                    <div class="hg-signin-form-col">
+                        <div class="hg-signin-brand">
+                            <img class="hg-signin-brand-granola" src="images/granola_logo_mini.svg" alt="Granola Consulting" width="140" height="35" decoding="async"/>
+                            <img class="hg-signin-brand-honeygold" src="images/honeygold/honeygold_logo.png" alt="HoneyGold" width="160" height="48" decoding="async"/>
+                        </div>
+
+                        <div id="hg-view-signin" class="hg-signin-view">
+                            <h1>Log in to your account</h1>
+                            <p class="hg-signin-lead">Sign in with Google or your email to open your HoneyGold Starter workspace.</p>
+                            <p id="hg-signin-error" class="hg-signin-error" hidden></p>
+                            <p id="hg-signin-status" class="hg-signin-status" hidden aria-live="polite"></p>
+                            <button type="button" id="hg-signin-google" class="hg-signin-google">
+                                <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                                Continue with Google
+                            </button>
+                            <p class="hg-signin-divider">or continue with email</p>
+                            <form id="hg-signin-email-form" novalidate>
+                                <div class="hg-signin-field">
+                                    <label for="hg-signin-email">Email</label>
+                                    <div class="hg-signin-input-wrap">
+                                        <input type="email" id="hg-signin-email" name="email" autocomplete="email" placeholder="you@company.com" required/>
+                                    </div>
+                                </div>
+                                <div class="hg-signin-field">
+                                    <label for="hg-signin-password">Password</label>
+                                    <div class="hg-signin-input-wrap">
+                                        <input type="password" id="hg-signin-password" name="password" autocomplete="current-password" placeholder="Password" required/>
+                                    </div>
+                                </div>
+                                <p class="hg-signin-row">
+                                    <span></span>
+                                    <a href="#" id="hg-forgot-link">Forgot password?</a>
+                                </p>
+                                <button type="submit" class="hg-signin-submit" id="hg-signin-email-btn">Log in</button>
+                            </form>
+                            <p class="hg-signin-foot">New to HoneyGold? <a href="#" id="hg-show-signup">Create a free Starter account</a> with email or Google.</p>
+                        </div>
+
+                        <div id="hg-view-signup" class="hg-signin-view" hidden>
+                            <h1>Create your account</h1>
+                            <p class="hg-signin-lead">Start free on HoneyGold Starter with Google or email and password (8+ characters).</p>
+                            <p id="hg-signup-error" class="hg-signin-error" hidden></p>
+                            <p id="hg-signup-status" class="hg-signin-status" hidden aria-live="polite"></p>
+                            <button type="button" id="hg-signup-google" class="hg-signin-google">
+                                <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                                Continue with Google
+                            </button>
+                            <p class="hg-signin-divider">or sign up with email</p>
+                            <form id="hg-signup-email-form" novalidate>
+                                <div class="hg-signin-field">
+                                    <label for="hg-signup-email">Email</label>
+                                    <div class="hg-signin-input-wrap">
+                                        <input type="email" id="hg-signup-email" name="email" autocomplete="email" placeholder="you@company.com" required/>
+                                    </div>
+                                </div>
+                                <div class="hg-signin-field">
+                                    <label for="hg-signup-password">Password</label>
+                                    <div class="hg-signin-input-wrap">
+                                        <input type="password" id="hg-signup-password" name="password" autocomplete="new-password" placeholder="At least 8 characters" minlength="8" required/>
+                                    </div>
+                                </div>
+                                <button type="submit" class="hg-signin-submit">Create account</button>
+                            </form>
+                            <p class="hg-signin-foot">Already have an account? <a href="#" id="hg-show-signin">Sign in</a></p>
+                        </div>
+
+                        <div id="hg-view-confirm" class="hg-signin-view" hidden>
+                            <h1>Confirm your email</h1>
+                            <p class="hg-signin-lead">Enter the verification code we sent to your email, then we will set up your Starter workspace.</p>
+                            <p id="hg-confirm-error" class="hg-signin-error" hidden></p>
+                            <p id="hg-confirm-status" class="hg-signin-status" hidden aria-live="polite"></p>
+                            <form id="hg-confirm-form" novalidate>
+                                <div class="hg-signin-field">
+                                    <label for="hg-confirm-email">Email</label>
+                                    <div class="hg-signin-input-wrap">
+                                        <input type="email" id="hg-confirm-email" name="email" autocomplete="email" required/>
+                                    </div>
+                                </div>
+                                <div class="hg-signin-field">
+                                    <label for="hg-confirm-code">Verification code</label>
+                                    <div class="hg-signin-input-wrap">
+                                        <input type="text" id="hg-confirm-code" name="code" inputmode="numeric" autocomplete="one-time-code" required/>
+                                    </div>
+                                </div>
+                                <div class="hg-signin-field">
+                                    <label for="hg-confirm-password">Password</label>
+                                    <div class="hg-signin-input-wrap">
+                                        <input type="password" id="hg-confirm-password" name="password" autocomplete="current-password" placeholder="Your account password" required/>
+                                    </div>
+                                </div>
+                                <button type="submit" class="hg-signin-submit">Confirm and continue</button>
+                            </form>
+                            <p class="hg-signin-foot"><a href="#" id="hg-back-signin-confirm">Back to sign in</a></p>
+                        </div>
+
+                        <div id="hg-view-forgot" class="hg-signin-view" hidden>
+                            <h1>Reset your password</h1>
+                            <p class="hg-signin-lead">Enter your email and we will send reset instructions (and a verification code from Cognito).</p>
+                            <p id="hg-forgot-error" class="hg-signin-error" hidden></p>
+                            <p id="hg-forgot-status" class="hg-signin-status" hidden aria-live="polite"></p>
+                            <form id="hg-forgot-form" novalidate>
+                                <div class="hg-signin-field">
+                                    <label for="hg-forgot-email">Email</label>
+                                    <div class="hg-signin-input-wrap">
+                                        <input type="email" id="hg-forgot-email" name="email" autocomplete="email" required/>
+                                    </div>
+                                </div>
+                                <button type="submit" class="hg-signin-submit">Send reset email</button>
+                            </form>
+                            <p class="hg-signin-foot"><a href="#" id="hg-back-signin">Back to sign in</a></p>
+                        </div>
+
+                        <div id="hg-view-reset" class="hg-signin-view" hidden>
+                            <h1>Choose a new password</h1>
+                            <p class="hg-signin-lead">Enter the verification code from your email and a new password (8+ characters).</p>
+                            <p id="hg-reset-error" class="hg-signin-error" hidden></p>
+                            <form id="hg-reset-form" novalidate>
+                                <div class="hg-signin-field">
+                                    <label for="hg-reset-email">Email</label>
+                                    <div class="hg-signin-input-wrap">
+                                        <input type="email" id="hg-reset-email" name="email" autocomplete="email" required/>
+                                    </div>
+                                </div>
+                                <div class="hg-signin-field">
+                                    <label for="hg-reset-code">Verification code</label>
+                                    <div class="hg-signin-input-wrap">
+                                        <input type="text" id="hg-reset-code" name="code" inputmode="numeric" autocomplete="one-time-code" required/>
+                                    </div>
+                                </div>
+                                <div class="hg-signin-field">
+                                    <label for="hg-reset-password">New password</label>
+                                    <div class="hg-signin-input-wrap">
+                                        <input type="password" id="hg-reset-password" name="newPassword" autocomplete="new-password" minlength="8" required/>
+                                    </div>
+                                </div>
+                                <button type="submit" class="hg-signin-submit">Update password</button>
+                            </form>
+                            <p class="hg-signin-foot"><a href="#" id="hg-back-signin-2">Back to sign in</a></p>
+                        </div>
+
+                        <div id="hg-signin-result" class="hg-signin-view" hidden></div>
+
+                        <p class="hg-signin-legal"><a href="/terms">Terms</a> · <a href="/privacy-policy">Privacy</a> · <a href="https://www.granolaconsulting.com/products/honeygold#hg-product-pricing-plans">Plans</a> · <a href="https://www.granolaconsulting.com/blog/honeygold-mcp-claude-desktop">MCP setup guide</a></p>
+                    </div>
+
+                    <div class="hg-signin-promo-col" aria-hidden="false">
+                        <img class="hg-signin-promo-art" src="images/honeygold/honeygold_ai_chat-400w.webp" width="400" height="214" alt="" decoding="async"/>
+                        <h2>Ask your business with Claude</h2>
+                        <p>Connect HoneyGold MCP in Claude Desktop. Governed analytics, Starter pool, 200 MCP tool calls per month.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="push"></div>
+</div>
+
+<footer id="colophon" class="site-footer" role="contentinfo">
+        <div class="footer-content">
+            <hr/>
+            <h2><a href="mailto:hello@granolaconsulting.com" target="_blank">hello@granolaconsulting.com</a><!-- | Dogpatch Labs, The CHQ Building, Custom House Quay, Dublin, Ireland --></h2>
+            <h3>© 2025 Granola Consulting. All rights reserved</h3>
+        </div>
+</footer>
+</body>
+</html>

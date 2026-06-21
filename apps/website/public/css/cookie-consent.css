@@ -1,0 +1,193 @@
+/* Cookie consent — floating card, Granola marketing + HoneyGold variants */
+.granola-cookie {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100000;
+    padding: 0 1.25rem max(1.25rem, env(safe-area-inset-bottom));
+    padding-left: max(1.25rem, env(safe-area-inset-left));
+    padding-right: max(1.25rem, env(safe-area-inset-right));
+    pointer-events: none;
+    font-family: "Gabarito", arial, sans-serif;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+.granola-cookie__panel {
+    pointer-events: auto;
+    box-sizing: border-box;
+    max-width: 50rem;
+    margin: 0 auto;
+    padding: 1.35rem 1.5rem 1.4rem;
+    background: #f8f1e9;
+    border: 1px solid rgba(47, 53, 60, 0.12);
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(47, 53, 60, 0.2);
+    color: #2f353c;
+}
+
+.granola-cookie__body {
+    margin-bottom: 1.1rem;
+}
+
+.granola-cookie__title {
+    margin: 0 0 0.45rem;
+    font-size: 1.2em;
+    font-weight: 700;
+    line-height: 1.35;
+}
+
+.granola-cookie__text {
+    margin: 0;
+    font-size: 1.05em;
+    font-weight: 400;
+    line-height: 1.55;
+    color: #3d454d;
+}
+
+.granola-cookie__text a {
+    color: #198a8b;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.granola-cookie__text a:hover,
+.granola-cookie__text a:focus {
+    color: #29989a;
+}
+
+.granola-cookie__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    width: 100%;
+}
+
+.granola-cookie__btn {
+    margin: 0;
+    width: 100%;
+    padding: 0.75em 1.35em;
+    font-family: inherit;
+    font-size: 1em;
+    font-weight: 500;
+    line-height: 1.25;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.granola-cookie__btn:focus {
+    outline: 2px solid #29989a;
+    outline-offset: 2px;
+}
+
+.granola-cookie__btn--reject {
+    background: transparent;
+    color: #2f353c;
+    border-color: rgba(47, 53, 60, 0.28);
+}
+
+.granola-cookie__btn--reject:hover,
+.granola-cookie__btn--reject:focus {
+    background: rgba(47, 53, 60, 0.06);
+}
+
+.granola-cookie__btn--accept {
+    background: #29989a;
+    color: #f8f1e9;
+    border-color: #29989a;
+}
+
+.granola-cookie__btn--accept:hover,
+.granola-cookie__btn--accept:focus {
+    background: #198a8b;
+    border-color: #198a8b;
+}
+
+.granola-cookie--honeygold .granola-cookie__text a {
+    color: #a67a00;
+}
+
+.granola-cookie--honeygold .granola-cookie__text a:hover,
+.granola-cookie--honeygold .granola-cookie__text a:focus {
+    color: #d09a00;
+}
+
+.granola-cookie--honeygold .granola-cookie__btn--accept {
+    background: #d09a00;
+    border-color: #d09a00;
+    color: #2f353c;
+}
+
+.granola-cookie--honeygold .granola-cookie__btn--accept:hover,
+.granola-cookie--honeygold .granola-cookie__btn--accept:focus {
+    background: #b8860b;
+    border-color: #b8860b;
+}
+
+.granola-cookie--honeygold .granola-cookie__btn:focus {
+    outline-color: #d09a00;
+}
+
+@media (min-width: 640px) {
+    .granola-cookie {
+        padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+    }
+
+    .granola-cookie__panel {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto;
+        column-gap: 1.75rem;
+        row-gap: 0.35rem;
+        align-items: center;
+        max-width: 54rem;
+        padding: 1.5rem 1.65rem;
+    }
+
+    .granola-cookie__body {
+        display: contents;
+    }
+
+    .granola-cookie__title {
+        grid-column: 1;
+        grid-row: 1;
+        margin-bottom: 0;
+    }
+
+    .granola-cookie__text {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .granola-cookie__actions {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        flex-direction: column;
+        align-items: stretch;
+        width: auto;
+        min-width: 11rem;
+        gap: 0.65rem;
+    }
+
+    .granola-cookie__btn {
+        width: auto;
+        min-width: 11rem;
+    }
+}
+
+@media (min-width: 960px) {
+    .granola-cookie__panel {
+        max-width: 58rem;
+        padding: 1.65rem 1.85rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .granola-cookie__btn {
+        transition: none;
+    }
+}

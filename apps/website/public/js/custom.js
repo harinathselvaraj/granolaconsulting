@@ -2023,7 +2023,7 @@ function loadProductDetail() {
     var slug = getProductSlugFromUrl()
     if (!slug) {
         if (!isSocialPreviewCrawler()) {
-            window.location.href = "products.html"
+            window.location.href = "/products"
         }
         return
     }
@@ -2031,7 +2031,7 @@ function loadProductDetail() {
     var product = PRODUCT_DETAILS[slug]
     if (!product) {
         if (!isSocialPreviewCrawler()) {
-            window.location.href = "products.html"
+            window.location.href = "/products"
         }
         return
     }

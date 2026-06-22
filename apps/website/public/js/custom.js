@@ -393,12 +393,12 @@ function listBlogs() {
 function loadBlogDetail() {
     var slug = getProductSlugFromUrl() || getQueryParam("name")
     if (!slug) {
-        window.location.href = "/blog"
+        window.location.href = "/blogs"
         return
     }
     var post = BLOG_POSTS[slug]
     if (!post) {
-        window.location.href = "/blog"
+        window.location.href = "/blogs"
         return
     }
 

@@ -3,12 +3,13 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/products/:slug", "destination": "/product" },
-    { "source": "/blog/:slug", "destination": "/blog-post" }
+    { "source": "/blog/:slug", "destination": "/blog" }
   ],
   "redirects": [
     { "source": "/profile.html", "destination": "/about", "permanent": true },
-    { "source": "/blogs.html", "destination": "/blog", "permanent": true },
-    { "source": "/blog.html", "destination": "/blog", "permanent": true },
+    { "source": "/blog", "destination": "/blogs", "permanent": true },
+    { "source": "/blogs.html", "destination": "/blogs", "permanent": true },
+    { "source": "/blog.html", "destination": "/blogs", "permanent": true },
     { "source": "/service.html", "destination": "/services", "permanent": true },
     { "source": "/product.html", "destination": "/products", "permanent": true },
     { "source": "/products.html", "destination": "/products", "permanent": true },

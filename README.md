@@ -7,14 +7,9 @@ Monorepo for `granolaconsulting.com` (marketing website) and the HoneyGold produ
 ```
 apps/
   website/          → granolaconsulting.com (marketing site)
-    public/         ← HTML pages, CSS, JS, images, fonts, downloads
-    vercel.json     ← clean URLs, rewrites, 301 redirects
-    package.json
   honeygold/        → app.granolaconsulting.com (HoneyGold product app)
-    public/         ← sign-in, onboard, privacy, terms, sandbox pages
-    vercel.json     ← clean URLs, legacy redirects
-    package.json
-honeygold/          → HoneyGold backend product (Docker / AWS)
+  admin/            → admin.granolaconsulting.com (HoneyGold admin console, Vite)
+honeygold/          → HoneyGold backend (Docker / AWS CDK)
 docs/               → hosting and ops documentation
 ```
 
@@ -56,6 +51,18 @@ Product and blog content is loaded dynamically from `js/custom.js` (`PRODUCT_DET
 | `/checkout-success` | `checkout-success.html` |
 | `/enterprise-thanks` | `enterprise-thanks.html` |
 
+### `apps/admin` — HoneyGold admin console
+
+**Domain:** `admin.granolaconsulting.com`  
+**Vercel project:** `granola-admin`
+
+Vite SPA for internal HoneyGold tenant/user administration (Cognito + provisioning API). Build-time env: `VITE_ADMIN_API_BASE`, `VITE_COGNITO_*` (see `apps/admin/.env.example`).
+
+```bash
+cd apps/admin && npm run dev    # http://localhost:5173
+cd apps/admin && npx vercel --prod
+```
+
 ## Local development
 
 ```bash
@@ -74,24 +81,28 @@ Both apps deploy automatically to Vercel on every push to `main`:
 |-----|---------------|----------------|
 | Marketing | `granola-website` | `apps/website` |
 | HoneyGold | `granola-honeygold` | `apps/honeygold` |
+| Admin | `granola-admin` | `apps/admin` |
 
 Manual deploy (if needed):
 ```bash
 cd apps/website  && npx vercel --prod
 cd apps/honeygold && npx vercel --prod
+cd apps/admin    && npx vercel --prod
 ```
 
 ## DNS (Cloudflare)
 
-All three records must be set to **DNS only** (grey cloud) in Cloudflare:
+Set Vercel hosts to **DNS only** (grey cloud). Vercel provisions SSL once the records resolve.
 
 | Type | Name | Value |
 |------|------|-------|
 | A | `@` (apex) | `76.76.21.21` |
 | A | `www` | `76.76.21.21` |
 | A | `app` | `76.76.21.21` |
+| A | `admin` | `76.76.21.21` |
+| CNAME | `honeygold` | ALB from `HoneyGoldSharedPoolStack` → `StarterPoolAlbDns` (AWS ECS gateway, not Vercel) |
 
-Vercel provisions SSL automatically once the A records resolve.
+See [`docs/hosting.md`](docs/hosting.md) for full hosting topology, CDK deploy commands, and legacy S3 notes.
 
 ## Editing content
 

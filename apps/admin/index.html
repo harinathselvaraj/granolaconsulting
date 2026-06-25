@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>HoneyGold Admin</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      window.addEventListener(
+        "error",
+        function (event) {
+          var target = event.target;
+          if (!target || target.tagName !== "SCRIPT") return;
+          var app = document.getElementById("app");
+          if (!app || app.childElementCount > 0) return;
+          app.innerHTML =
+            '<div style="font-family:system-ui,sans-serif;max-width:520px;margin:48px auto;padding:24px">' +
+            "<h1>HoneyGold Admin</h1>" +
+            "<p>The admin app failed to load (often a cached old version after deploy).</p>" +
+            "<p><strong>Fix:</strong> hard refresh (<code>⌘⇧R</code>) or clear site data for this domain, then open " +
+            '<a href="https://admin.granolaconsulting.com/">https://admin.granolaconsulting.com/</a>.</p></div>';
+        },
+        true
+      );
+    </script>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

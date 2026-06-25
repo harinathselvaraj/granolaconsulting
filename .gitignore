@@ -11,8 +11,8 @@ node_modules/
 .cursor/
 .claude/
 
-# HoneyGold backend — tracked in its own separate git repository
-honeygold/
+# HoneyGold backend — tracked in its own separate git repository (repo root only)
+/honeygold/
 
 # Local backend / tooling not part of the Vercel-deployed sites
 api/

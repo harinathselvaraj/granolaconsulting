@@ -17,4 +17,6 @@ node_modules/
 # Local backend / tooling not part of the Vercel-deployed sites
 api/
 scripts/
-docs/
+
+# HoneyGold backend has its own git repo (see docs/project-structure.md)
+# /honeygold/ is ignored at monorepo root — commit backend changes in honeygold/.git

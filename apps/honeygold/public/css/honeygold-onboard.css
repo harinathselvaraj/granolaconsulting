@@ -490,6 +490,28 @@ body.honeygold-onboard-page #hg-onboard-back.view-more-btn:focus {
     margin: 0 0 1.25rem;
 }
 
+.hg-provision-progress {
+    height: 4px;
+    background: #edf2f5;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 0 0 0.75rem;
+}
+
+.hg-provision-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--hg-accent), #3eb8d4);
+    transition: width 0.4s ease;
+}
+
+.hg-onboard-provision-percent {
+    font-size: 1rem;
+    line-height: 1.45;
+    color: #5c6368;
+    margin: 0 0 0.75rem;
+    font-weight: 600;
+}
+
 .hg-provision-step-list {
     list-style: none;
     margin: 0;

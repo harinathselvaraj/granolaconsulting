@@ -93,8 +93,17 @@
         mode: "business",
         provisioningActive: false,
         pollTimer: null,
-        provisionStartedAt: null
+        provisionStartedAt: null,
+        displayedPercent: 8,
+        serverPercent: 0,
+        progressCreepTimer: null
     };
+
+    var PROGRESS_RAMP_MS = 120000;
+    var PROGRESS_RAMP_TARGET = 92;
+    var PROGRESS_MIN = 8;
+    var PROGRESS_CAP_UNTIL_READY = 98;
+    var PROGRESS_MAX_STEP = 2;
 
     function defaultDraft() {
         return {
@@ -978,6 +987,8 @@
             html += '<h2 class="hg-onboard-panel-title">Setting up your workspace</h2>';
             html +=
                 '<p class="hg-onboard-panel-lead">Starting your private Superset workspace on the Starter pool. We will open HoneyGold automatically once Superset responds.</p>';
+            html += '<div class="hg-provision-progress" aria-hidden="true"><div class="hg-provision-progress-fill" id="hg-provision-progress-fill" style="width:8%"></div></div>';
+            html += '<p class="hg-onboard-provision-percent">Progress: <span id="hg-provision-percent">8%</span></p>';
             html += '<p class="hg-onboard-provision-elapsed">Elapsed: <span id="hg-elapsed">0:00</span> (typical completion: 2–5 minutes).</p>';
         } else {
             html += '<h2 class="hg-onboard-panel-title">Provisioning your dedicated stack</h2>';
@@ -1014,6 +1025,52 @@
         }
     }
 
+    function timeFloorPercent() {
+        var elapsed = Date.now() - (state.provisionStartedAt || Date.now());
+        var t = Math.min(1, elapsed / PROGRESS_RAMP_MS);
+        var eased = 1 - (1 - t) * (1 - t);
+        return PROGRESS_MIN + Math.floor((PROGRESS_RAMP_TARGET - PROGRESS_MIN) * eased);
+    }
+
+    function bumpDisplayedPercent(target) {
+        if (target > state.displayedPercent) {
+            state.displayedPercent = Math.min(target, state.displayedPercent + PROGRESS_MAX_STEP);
+        }
+        return state.displayedPercent;
+    }
+
+    function applyProvisionProgress(readyToOpen) {
+        var bar = document.getElementById("hg-provision-progress-fill");
+        var label = document.getElementById("hg-provision-percent");
+        if (!bar || !label) {
+            return;
+        }
+        if (readyToOpen) {
+            state.displayedPercent = 100;
+        } else {
+            var floor = timeFloorPercent();
+            var target = Math.min(PROGRESS_CAP_UNTIL_READY, Math.max(state.serverPercent, floor));
+            bumpDisplayedPercent(target);
+        }
+        var show = Math.max(PROGRESS_MIN, Math.round(state.displayedPercent));
+        bar.style.width = show + "%";
+        label.textContent = show + "%";
+    }
+
+    function tickProvisionProgress() {
+        applyProvisionProgress(false);
+    }
+
+    function stopProvisionTimers() {
+        if (state.pollTimer) {
+            clearInterval(state.pollTimer);
+            state.pollTimer = null;
+        }
+        if (state.progressCreepTimer) {
+            clearInterval(state.progressCreepTimer);
+            state.progressCreepTimer = null;
+        }
+    }
     function formatElapsed(ms) {
         var s = Math.floor(ms / 1000);
         var m = Math.floor(s / 60);
@@ -1194,7 +1251,10 @@
     function startStarterPolling(tenantId) {
         state.tenantId = tenantId;
         state.provisionStartedAt = state.provisionStartedAt || Date.now();
+        state.displayedPercent = PROGRESS_MIN;
+        state.serverPercent = 0;
         var elapsedEl = document.getElementById("hg-elapsed");
+        stopProvisionTimers();
         function tick() {
             if (elapsedEl) {
                 elapsedEl.textContent = formatElapsed(Date.now() - state.provisionStartedAt);
@@ -1202,18 +1262,14 @@
             var statusPromise = state.idToken ? apiGetWorkspaceStatus(tenantId) : apiGetTenantStatus(tenantId);
             statusPromise
                 .then(function (data) {
+                    state.serverPercent = Number(data.percent || 0);
                     renderProvisionSteps(data.steps, "Status: " + (data.status || "IN_PROGRESS"));
+                    applyProvisionProgress(!!data.readyToOpen);
                     if (data.readyToOpen) {
-                        if (state.pollTimer) {
-                            clearInterval(state.pollTimer);
-                            state.pollTimer = null;
-                        }
+                        stopProvisionTimers();
                         showStarterReadyResult();
                     } else if (data.status === "FAILED" || data.status === "REVOKED") {
-                        if (state.pollTimer) {
-                            clearInterval(state.pollTimer);
-                            state.pollTimer = null;
-                        }
+                        stopProvisionTimers();
                         var result = document.getElementById("hg-provision-result");
                         if (result) {
                             result.hidden = false;
@@ -1232,6 +1288,8 @@
         }
         tick();
         state.pollTimer = setInterval(tick, 5000);
+        state.progressCreepTimer = setInterval(tickProvisionProgress, 2000);
+        tickProvisionProgress();
     }
 
     function beginProvisioningUI() {

@@ -8,8 +8,8 @@ Last updated: June 2026 · Region: **eu-west-1** · AWS profile: typically `defa
 |--------|---------|---------|
 | Marketing site | Push `granolaconsulting` `main` | Auto Vercel, or `cd apps/website && npx vercel --prod` |
 | Product app | Push `granolaconsulting` `main` | Auto Vercel, or see [Vercel honeygold](#vercel-granola-honeygold) below |
-| Admin console | Push `granolaconsulting` `main` | Auto Vercel, or `cd apps/admin && npx vercel --prod` |
-| Starter gateway | Push `honeygold` `main` + image deploy | `honeygold/infra/aws/cdk/scripts/rollout-gateway-only.sh` |
+| Admin console | Push `granolaconsulting` `main` | Auto Vercel, or `honeygold/scripts/deploy-admin-console.sh` |
+| Starter gateway | Push `honeygold` `main` | `honeygold/infra/aws/cdk/scripts/deploy-shared-pool-stack.sh` |
 | CDK stacks | Manual | `cd honeygold/infra/aws/cdk && npm run deploy:*` |
 
 **Do not use** legacy S3 deploy (`createdesign_websites/copy_website_files_to_s3.sh`) for marketing or product apps.
@@ -83,7 +83,7 @@ Set on project **granola-admin** (see `apps/admin/.env.example`):
 
 | Variable | Source |
 |----------|--------|
-| `VITE_ADMIN_API_BASE` | `HoneyGoldProvisioningControlStack` → `ProvisioningApiUrl` (use `…/v1`, not `…/v1/v1`) |
+| `VITE_ADMIN_API_BASE` | `HoneyGoldProvisioningControlStack` → `ProvisioningApiEndpoint95345E26` (stage `…/v1`, not `ProvisioningApiUrl` `…/v1/v1`) |
 | `VITE_COGNITO_DOMAIN` | `HoneyGoldCognitoStarterStack` output |
 | `VITE_COGNITO_CLIENT_ID` | Admin app client ID |
 | `VITE_COGNITO_REGION` | `eu-west-1` |
@@ -132,42 +132,93 @@ npm run deploy:shared-pool       # gateway + MCP + Superset only (after first fu
 npm run deploy:control           # provisioning Lambdas / API Gateway only
 ```
 
-Wrapper scripts live in `honeygold/infra/aws/cdk/scripts/`. Use `-c adoptExistingStorage=true` when DynamoDB/S3 pre-exist (see `deploy-starter-pool.sh`).
-
-### Hotfix deploys (no full CDK)
-
-Use when CDK stack deploy is blocked but you need new container/Lambda code live:
-
-| Script | Updates |
-|--------|---------|
-| `scripts/rollout-gateway-only.sh` | Gateway ECS image (onboarding UI, auth, API proxy) |
-| `scripts/rollout-shared-superset-only.sh` | Shared Superset ECS task |
-| `scripts/rollout-mcp-starter-tools.sh` | MCP router + sidecar |
-
-**Current ECS names** (refresh after stack recreate):
+Wrapper scripts live in `honeygold/infra/aws/cdk/scripts/`:
 
 ```bash
-# Cluster
-HoneyGoldSharedPoolStack-ClusterEB0386A7-1OwOHq0pFSTH
-
-# Gateway service
-HoneyGoldSharedPoolStack-GatewayService794C6FF6-glSinwSuJGEj
+bash scripts/deploy-provisioning-control.sh   # Lambdas + API Gateway
+bash scripts/deploy-shared-pool-stack.sh      # gateway + MCP + Superset
 ```
 
-Override via env: `HG_ECS_CLUSTER`, `HG_GATEWAY_SERVICE`.
+Both pass `-c adoptExistingStorage=true` when DynamoDB/S3 already exist.
 
-### Lambda-only updates
+**CDK note:** Consuming stacks import DynamoDB tables by **table name** inside their own stack (`lib/import-storage-tables.ts`), not via cross-stack `Fn::ImportValue` from `HoneyGoldStorageStack`. This is required when storage runs in adopt-existing mode.
 
-When `HoneyGoldProvisioningControlStack` deploy fails (e.g. missing exports), update individual functions:
+See also: `honeygold/docs/aws-manual-changes-audit.md` (manual changes log + what not to do).
+
+### Tear down AWS (stop cost)
+
+While developing locally (`./scripts/hg-starter-local.sh up` from `honeygold/`), destroy cloud compute to avoid ongoing Fargate, RDS, ALB, and NAT charges (~$100–160/mo for a minimal Starter pool).
 
 ```bash
 cd honeygold/infra/aws/cdk
-npm run build && npx cdk synth HoneyGoldProvisioningControlStack
-# find asset hash in cdk.out/HoneyGoldProvisioningControlStack.template.json
-# zip index.mjs and aws lambda update-function-code …
+HG_TEARDOWN_CONFIRM=1 ./scripts/teardown-aws-stacks.sh
 ```
 
-Functions include: `SendWelcomeEmailFn`, `ProvisionStarterTenantFn`, `EnrollAccountFn`, admin APIs.
+What it does:
+
+1. Scales SharedPool ECS services to 0 (stops Fargate billing immediately).
+2. Destroys **ProvisioningControl**, **SharedPool**, **Foundation**, and **Cognito** stacks.
+3. **Keeps** **Storage** and **Secrets** (DynamoDB, S3, OAuth secrets — pennies/month).
+
+Lighter alternative (keeps Cognito user pool):
+
+```bash
+npm run destroy:compute   # runs scripts/destroy-compute-stacks.sh
+```
+
+To also remove persistent data (DynamoDB tables, S3 buckets):
+
+```bash
+HG_TEARDOWN_CONFIRM=1 HG_TEARDOWN_STORAGE=1 ./scripts/teardown-aws-stacks.sh
+```
+
+RDS deletion protection is disabled automatically before Foundation delete. Teardown takes **15–30 minutes** (RDS snapshot/delete is slow). Check progress:
+
+```bash
+aws cloudformation list-stacks --region eu-west-1 \
+  --query "StackSummaries[?starts_with(StackName,'HoneyGold') && StackStatus!='DELETE_COMPLETE'].{Name:StackName,Status:StackStatus}" \
+  --output table
+```
+
+After teardown, `honeygold.granolaconsulting.com` will be unreachable until you redeploy.
+
+### Redeploy AWS after teardown
+
+Storage and Secrets stacks are kept, so redeploy is faster than a first-time bootstrap:
+
+```bash
+aws sso login
+export AWS_REGION=eu-west-1
+cd honeygold/infra/aws/cdk
+npm install && npm run build
+
+# Full Starter pool (recommended after teardown)
+npm run deploy:starter-pool
+
+# Or resume if a prior deploy was interrupted (laptop sleep, etc.)
+bash scripts/resume-starter-pool-deploy.sh
+```
+
+Then wire DNS and frontends:
+
+1. Point `honeygold.granolaconsulting.com` CNAME to `StarterPoolAlbDns` (see [Gateway DNS](#gateway-dns) below).
+2. Run `./scripts/sync-marketing-signin-config.sh` from `honeygold/` and update Vercel env vars on **granola-admin** if Cognito outputs changed.
+3. Deploy Vercel frontends (`apps/honeygold`, `apps/admin`) — see [Vercel](#vercel) above.
+4. Run [post-deploy checks](#post-deploy-checks).
+
+Local dev (no AWS cost): `cd honeygold && ./scripts/hg-starter-local.sh up` → http://localhost:8080
+
+### Emergency hotfix only (not routine deploy)
+
+Use **only** if CDK deploy is blocked and you need code live immediately. Record every change in `honeygold/docs/aws-manual-changes-audit.md` and follow up with CDK deploy.
+
+| Script | Updates |
+|--------|---------|
+| `scripts/rollout-gateway-only.sh` | Gateway ECS image — **superseded by** `deploy-shared-pool-stack.sh` |
+| `scripts/rollout-shared-superset-only.sh` | Shared Superset ECS task |
+| `scripts/rollout-mcp-starter-tools.sh` | MCP router + sidecar |
+
+Do **not** use `aws lambda update-function-code` or manual ECS task-definition registration for routine changes.
 
 ### Gateway DNS
 

@@ -771,13 +771,13 @@ var PRODUCT_DETAILS = {
                 "Executive summaries and anomaly alerts in Superset when you want operational views, not only chat",
                 "Business tier: dedicated ECS + RDS per customer; SSO and team seats included"
             ],
-            "trustLine": "Free Starter · 1 user · Google sign-in · No credit card",
+            "trustLine": "Starter · 14-day free trial · No credit card required",
             "pricingStrip": [
-                { "label": "Starter", "price": "Free forever", "href": "/sign-in?plan=starter" },
+                { "label": "Starter", "price": "14-day free trial", "href": "/sign-in?plan=starter" },
                 { "label": "Business", "price": "from €699/mo*", "href": "#hg-product-pricing-plans" },
                 { "label": "Enterprise", "price": "Contact us", "href": "/onboard?product=honeygold&plan=enterprise" }
             ],
-            "primaryCta": { "label": "Start free with Google", "href": "/sign-in?plan=starter" },
+            "primaryCta": { "label": "Start free", "href": "/sign-in?plan=starter" },
             "secondaryCta": { "label": "See plans & pricing", "href": "#hg-product-pricing-plans" }
         },
         "heroGallery": [
@@ -851,7 +851,7 @@ var PRODUCT_DETAILS = {
         ],
         "pricingTables": {
             "title": "Plans & hosted infrastructure",
-            "lead": "Starter runs on a shared HoneyGold pool (free, one user). Business and Enterprise get a dedicated ECS Fargate service and PostgreSQL metadata database per customer. Use Claude Desktop with the HoneyGold MCP connector on any tier. You pay Anthropic for Claude; HoneyGold meters governed data access via MCP.",
+            "lead": "Starter runs on a shared HoneyGold pool (14-day free trial, one user, no credit card at sign-up). Business and Enterprise get a dedicated ECS Fargate service and PostgreSQL metadata database per customer. Use Claude Desktop with the HoneyGold MCP connector on any tier. You pay Anthropic for Claude; HoneyGold meters governed data access via MCP.",
             "pricingContrast": {
                 "title": "Infrastructure-first pricing vs traditional BI",
                 "body": "Tableau Cloud and Microsoft Power BI typically charge per viewer or per user role. HoneyGold Business is priced around dedicated infrastructure and team seats; broad read access is available without a per-seat tax via our Unlimited viewers pack."
@@ -859,14 +859,14 @@ var PRODUCT_DETAILS = {
             "comparison": {
                 "columns": ["", "Starter", "Business", "Enterprise"],
                 "rows": [
-                    ["Starting at", "Free forever", "€699 / mo* · €7,549 / yr ex VAT", "Contact us"],
+                    ["Starting at", "14-day free trial · then €25 / mo · €250 / yr ex VAT", "€699 / mo* · €7,549 / yr ex VAT", "Contact us"],
                     ["Infrastructure", "Shared pool", "Dedicated ECS + RDS per tenant", "Dedicated ECS + RDS · multi-region available"],
                     ["Compute", "Shared pool (fair use)", "2 vCPU · 4 GB RAM (M tier)", "Custom"],
                     ["Users included", "1 creator", "8 creators, 50 viewers", "Custom"],
-                    ["AI access (Claude Desktop + MCP)", "200 MCP tool calls / mo", "5,000 MCP tool calls / mo", "Custom (usage-based)"],
+                    ["AI access (Claude Desktop + MCP)", "2,000 MCP tool calls / mo", "5,000 MCP tool calls / mo", "Custom (usage-based)"],
                     ["MCP tools", "Read-only (dashboards, datasets, charts)", "Read-only + governed query (roadmap)", "Full surface + custom connectors"],
                     ["Metadata storage included", "Demo dataset", "100 GB", "Custom"],
-                    ["File upload storage", "2 GB", "50 GB", "Custom"],
+                    ["File upload storage", "10 GB / mo", "50 GB", "Custom"],
                     ["Data egress included", "50 GB / mo", "500 GB / mo", "Custom"],
                     ["Data ingress included", "25 GB / mo", "250 GB / mo", "Custom"],
                     ["SSO (SAML / OIDC)", "Not included", "Included", "Included"],
@@ -951,13 +951,13 @@ var PRODUCT_DETAILS = {
             },
             "pricingPilot": {
                 "title": "Start free on Starter",
-                "body": "Sign in with Google and connect Claude Desktop to HoneyGold MCP in minutes. One user, shared infrastructure, 200 MCP tool calls per month on read-only analytics tools. Upgrade to Business for a dedicated environment and higher MCP limits.",
-                "fee": "",
-                "ctaLabel": "Start free with Google",
+                "body": "14-day free trial — no credit card required. One user on shared infrastructure, 2,000 MCP tool calls per month, and 10 GB file upload storage per month. Connect Claude Desktop to HoneyGold MCP in minutes. After the trial, Starter is €25 per person per month or €250 per year (ex VAT).",
+                "fee": "No credit card required to start.",
+                "ctaLabel": "Start free",
                 "href": "/sign-in?plan=starter"
             },
             "educationPlan": {
-                "body": "Universities and research labs: Starter stays free for teaching; Business plans from 25% off with a valid institutional email. Classroom cohorts and lab sandboxes welcome.",
+                "body": "Universities and research labs: Starter includes the 14-day trial for teaching; Business plans from 25% off with a valid institutional email. Classroom cohorts and lab sandboxes welcome.",
                 "ctaLabel": "Ask about university pricing",
                 "ctaHref": "mailto:hello@granolaconsulting.com?subject=HoneyGold%20university%20pricing"
             },
@@ -975,7 +975,8 @@ var PRODUCT_DETAILS = {
                 "Business named contact owns onboarding and renewals, not a 24×7 duty roster. Enterprise SLA targets (uptime and response) are defined in your MSA or order form.",
                 "Support covers the HoneyGold platform (hosting, access, MCP connector), not unlimited data modelling consulting or third-party Claude/warehouse fees. Hands-on analytics help is available under Professional services & Analyst on Demand below.",
                 "Bring-your-own cloud remains available for regulated clients; pricing shifts to management fee + passthrough.",
-                "University & research pricing: 25% discount on Business applies to qualifying institutions (annual billing); verify with an official .edu or institutional email. Starter remains free for individual students and faculty exploring HoneyGold."
+                "Starter: 14-day free trial with no credit card at sign-up; then €25 per person per month or €250 per year (ex VAT). Paid conversion is enabled manually after the trial when you are ready.",
+                "University & research pricing: 25% discount on Business applies to qualifying institutions (annual billing); verify with an official .edu or institutional email."
             ]
         },
         "pricingGuide": {
@@ -993,7 +994,7 @@ var PRODUCT_DETAILS = {
             "tierPicks": [
                 {
                     "name": "Starter",
-                    "body": "Solo analyst or founder: free forever, Google sign-in, shared pool, 1 creator, 200 MCP calls/month, 50 GB egress. Install the HoneyGold connector in Claude Desktop and explore with the demo dataset."
+                    "body": "Solo analyst or founder: 14-day free trial (no credit card), shared pool, 1 creator, 2,000 MCP calls/month, 10 GB file upload/month. Then €25/mo or €250/yr per person. Install the HoneyGold connector in Claude Desktop and explore with the demo dataset."
                 },
                 {
                     "name": "Business",
@@ -1004,7 +1005,7 @@ var PRODUCT_DETAILS = {
                     "body": "For larger organizations. More compute, SCIM, embedded analytics, SLAs, and custom infrastructure and contracts. Contact us for procurement and residency."
                 }
             ],
-            "closing": "Start free with Google on Starter, or contact us for Business and Enterprise. We will map traffic, identity, and warehouse patterns before annual billing."
+            "closing": "Start free on Starter (no credit card required), or contact us for Business and Enterprise. We will map traffic, identity, and warehouse patterns before annual billing."
         }
     },
     "cinnamon": {
@@ -1465,7 +1466,7 @@ function buildHoneyGoldPricingPlansExtrasHtml(pt) {
             '<p class="hg-pricing-pilot-cta"><a href="' +
             escapeHtml(pilot.href || honeyGoldSignInHref("starter")) +
             '" class="view-more-btn hg-pricing-sandbox-cta">' +
-            escapeHtml(pilot.ctaLabel || "Start free with Google") +
+            escapeHtml(pilot.ctaLabel || "Start free") +
             "</a></p>"
         html += "</aside>"
     }
@@ -1567,7 +1568,7 @@ function buildHoneyGoldPricingSlots(product) {
         if (planParam === "enterprise") {
             ctaLabel = "Contact us"
         } else if (planParam === "starter") {
-            ctaLabel = "Start free with Google"
+            ctaLabel = "Start free"
             ctaHref = honeyGoldSignInHref("starter")
         }
         plans +=
@@ -1737,7 +1738,7 @@ function buildHoneyGoldConversionHeroHtml(product) {
         '<a href="' +
         escapeHtml(primaryHref) +
         '" class="view-more-btn hg-product-cta-primary">' +
-        escapeHtml(primary.label || "Start free with Google") +
+        escapeHtml(primary.label || "Start free") +
         "</a>"
     html +=
         '<a href="' +
@@ -1832,7 +1833,7 @@ function initHoneyGoldStickyCta(product) {
     var secondaryLink = bar.querySelector(".hg-product-sticky-cta__secondary")
     if (primaryLink) {
         primaryLink.setAttribute("href", siteAssetPath(primary.href || honeyGoldSignInHref("starter")))
-        primaryLink.textContent = primary.label || "Start free with Google"
+        primaryLink.textContent = primary.label || "Start free"
     }
     if (secondaryLink) {
         var secHref = secondary.href || "#hg-product-pricing-plans"

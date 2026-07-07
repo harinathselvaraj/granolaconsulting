@@ -1,6 +1,6 @@
 # HoneyGold Stripe subscription billing
 
-HoneyGold **Business** is sold as a **Stripe subscription** (monthly or annual). **Starter** stays free via Cognito sign-in. **Enterprise** remains sales-assisted (no self-serve checkout).
+HoneyGold **Business** is sold as a **Stripe subscription** (monthly or annual). **Starter** uses a **14-day free trial** (no credit card at sign-up); paid conversion is **manual** — enable a Stripe subscription in the Dashboard when the customer is ready (€25/month or €250/year per person). **Enterprise** remains sales-assisted (no self-serve checkout).
 
 ## Architecture
 
@@ -37,6 +37,7 @@ Implementation lives in the **HoneyGold** repo (`infra/aws/cdk/lambdas/*`) and t
 3. Copy Price IDs (`price_…`) for CDK context:
    - `stripePriceBusinessMonthly`
    - `stripePriceBusinessAnnual`
+   - (Optional, for manual Starter conversion) `stripePriceStarterMonthly` · `stripePriceStarterAnnual` — €25/mo · €250/yr
 4. Store API keys in AWS Secrets Manager secret `honeygold/stripe` (JSON):
 
 ```json

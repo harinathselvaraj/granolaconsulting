@@ -1,6 +1,6 @@
 # HoneyGold customer onboarding — delivery plan
 
-This document tracks **HoneyGold SaaS onboarding**: instant **Starter** enroll on a shared pool, and **Business / Enterprise** dedicated-stack provisioning. Pricing is **3 tiers** (Starter free, Business ~€699/mo, Enterprise contact us). All list prices are in **EUR**. **AI access** is via **Claude Desktop + HoneyGold MCP** (monthly MCP tool-call quotas—not hosted LLM tokens).
+This document tracks **HoneyGold SaaS onboarding**: instant **Starter** enroll on a shared pool (14-day free trial, no credit card), and **Business / Enterprise** dedicated-stack provisioning. Pricing is **3 tiers** (Starter €25/mo · €250/yr after trial, Business ~€699/mo, Enterprise contact us). All list prices are in **EUR**. **AI access** is via **Claude Desktop + HoneyGold MCP** (monthly MCP tool-call quotas—not hosted LLM tokens).
 
 **Related:** [Starter multi-tenancy checklist](./honeygold-starter-multitenancy-checklist.md) · [HoneyGold AWS hosting costs](./honeygold-aws-hosting-costs.md) · [BI comparison](./honeygold-bi-comparison.md) · HoneyGold CDK: `~/Documents/HoneyGold/infra/aws/cdk/`
 
@@ -51,7 +51,7 @@ Plans: `starter` | `business` | `enterprise` (`professional` maps to **business*
 
 | Surface | Destination |
 | ------- | ----------- |
-| Hero primary CTA | `honeygold-signin.html?plan=starter` (“Start free with Google”) |
+| Hero primary CTA | `honeygold-signin.html?plan=starter` (“Start free”) |
 | Hero secondary CTA | `#hg-product-pricing-plans` |
 | Pricing table **Starter** | `honeyGoldSignInHref("starter")` |
 | Pricing table **Business** | `honeyGoldOnboardHref("business")` |
@@ -65,11 +65,11 @@ Helpers: `honeyGoldSignInHref(planParam)`, `honeyGoldOnboardHref(planParam)`, `h
 
 ## Plan entitlements (summary)
 
-| Plan | Infra | Compute | Users | MCP calls / month | Egress / mo | SSO | SCIM |
-| ---- | ----- | ------- | ----- | ----------------- | ----------- | --- | ---- |
-| **Starter** | Shared pool | Shared (fair use) | 1 creator | 200 (read-only tools) | 50 GB | — | — |
-| **Business** | Dedicated ECS + RDS | 2 vCPU · 4 GB (M tier) | 8 creators, 50 viewers | 5,000 | 500 GB | Included | Add-on / on request |
-| **Enterprise** | Dedicated · multi-region | Custom (usage-based) | Custom | Custom (usage-based) | Custom | Included | Included |
+| Plan | Infra | Compute | Users | MCP calls / month | File upload / mo | Egress / mo | SSO | SCIM |
+| ---- | ----- | ------- | ----- | ----------------- | ---------------- | ----------- | --- | ---- |
+| **Starter** | Shared pool | Shared (fair use) | 1 creator | 2,000 (read-only tools) | 10 GB | 50 GB | — | — |
+| **Business** | Dedicated ECS + RDS | 2 vCPU · 4 GB (M tier) | 8 creators, 50 viewers | 5,000 | 50 GB | 500 GB | Included | Add-on / on request |
+| **Enterprise** | Dedicated · multi-region | Custom (usage-based) | Custom | Custom (usage-based) | Custom | Custom | Included | Included |
 
 Anthropic bills **Claude** separately. HoneyGold enforces MCP quotas at `/hg/api/hg/mcp/tools/call` (see `apps/embedded-host/mcp_quota.py`).
 

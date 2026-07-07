@@ -46,7 +46,7 @@
     var ONBOARD_PLAN_IDS = { business: true, enterprise: true };
 
     var FALLBACK_PLANS = [
-        { id: "business", name: "Business", price: "€699 / mo*", compute: "2 vCPU · 4 GB · dedicated ECS + RDS", note: "Dedicated stack, SSO, 8 creators + 50 viewers, 5,000 MCP tool calls/mo. Provision ~10–20 min." },
+        { id: "business", name: "Business", price: "€699 / mo*", compute: "2 vCPU · 4 GB · dedicated ECS + RDS", note: "Dedicated stack, SSO, 8 creators + 50 viewers, 5,000 MCP tool calls per user/mo. Provision ~10–20 min." },
         { id: "enterprise", name: "Enterprise", price: "Contact us", compute: "XL / multi-region", note: "Sales-assisted deployment; custom MCP and infrastructure." }
     ];
 

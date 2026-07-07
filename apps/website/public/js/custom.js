@@ -867,7 +867,7 @@ var PRODUCT_DETAILS = {
                     ["Infrastructure", "Shared pool", "Dedicated ECS + RDS per tenant", "Dedicated ECS + RDS · multi-region available"],
                     ["Compute", "Shared pool (fair use)", "2 vCPU · 4 GB RAM (M tier)", "Custom"],
                     ["Users included", "1 creator", "8 creators, 50 viewers", "Custom"],
-                    ["AI access (Claude Desktop + MCP)", "2,000 MCP tool calls / mo", "5,000 MCP tool calls / mo", "Custom (usage-based)"],
+                    ["AI access (Claude Desktop + MCP)", "2,000 MCP tool calls / mo", "5,000 MCP tool calls / user / mo", "Custom (usage-based)"],
                     ["MCP tools", "Read-only (dashboards, datasets, charts)", "Read-only + governed query (roadmap)", "Full surface + custom connectors"],
                     ["Metadata storage included", "Demo dataset", "100 GB", "Custom"],
                     ["File upload storage", "10 GB / mo", "50 GB", "Custom"],
